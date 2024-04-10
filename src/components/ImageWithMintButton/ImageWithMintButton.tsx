@@ -1,11 +1,13 @@
 'use client'
 
-import { useCallback } from "react";
+import css from './ImageWithMintButton.module.css';
+
+import { useCallback, useEffect } from "react";
 
 import Image from "@/elements/Image";
 import Button from "@/elements/Button";
 
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract } from "wagmi";
 import CONTRACT_ABI from '@/contracts/nft-contract-abi.json';
 import { ethers } from "ethers";
 
@@ -13,19 +15,31 @@ import {
   CONTRACT_ADDRESS,
   CONTRACT_MINT_FUNCTION_NAME,
   CONTRACT_TRANSACTION_VALUE
-} from "@/constants/nft-contract";
+} from "@/constants/our-nfts";
 
 interface ImageWithMintButtonProps {
   src: string;
-  alt?: string;
+  alt: string;
+  isMinted: boolean;
 }
 
 const MINT_BUTTON_TEXT = 'Mint as NFT';
 const imageAddress = 'https://fuchsia-neighbouring-lemur-97.mypinata.cloud/ipfs/QmcpTo5ua8MUvJmUsZXrLt6p8cxMBqU7pKsjP28Funkenv';
 
 
-const ImageWithMintButton: React.FC<ImageWithMintButtonProps> = ({ src, alt }) => {
+const ImageWithMintButton: React.FC<ImageWithMintButtonProps> = ({
+  src,
+  alt,
+  isMinted,
+}) => {
+  const { address } = useAccount();
   const { data: hash, writeContract, isPending, error } = useWriteContract()
+  const resRead = useReadContract({
+    abi: CONTRACT_ABI,
+    address: CONTRACT_ADDRESS,
+    functionName: 'tokenURI',
+    args: [12],
+  })
  
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ 
     hash,
@@ -41,10 +55,16 @@ const ImageWithMintButton: React.FC<ImageWithMintButtonProps> = ({ src, alt }) =
     })
   }, [imageAddress])
 
+  useEffect(() => {
+    console.log(resRead)
+  }, [resRead])
+
   return (
-    <>
+    <div className={css.block} onClick={onMintButtonClick}>
       <Image src={src} alt={alt} />
-      <Button disabled={isPending} onClick={onMintButtonClick}>{MINT_BUTTON_TEXT}</Button>
+      <div className={css.button}>
+        <Button disabled={isPending}>{MINT_BUTTON_TEXT}</Button>
+      </div>
       <p>{hash}</p>
       {isPending && <p>Pending</p>}
       {isConfirming && <div>Waiting for confirmation...</div>} 
@@ -52,7 +72,7 @@ const ImageWithMintButton: React.FC<ImageWithMintButtonProps> = ({ src, alt }) =
       {error && ( 
         <div>Error: {error.message}</div> 
       )}
-    </>
+    </div>
   );
 }
 
