@@ -1,12 +1,12 @@
 @mixin light-theme {
   --bg-primary: #f5f5f5; /* Light gray for main background */
-  --bg-secondary: #e0e0e0; /* Slightly darker gray for secondary background */
-  --bg-accent: #cccccc; /* Light gray for accent areas (buttons, etc.) */
+  --bg-secondary: #fcf7e0; /* Slightly darker gray for secondary background */
+  --bg-accent: #573d21; /* Light gray for accent areas (buttons, etc.) */
   --bg-error: #f0f0f0; /* Light red for error messages */
 
   --text-primary: #333333; /* Dark gray for primary text */
   --text-secondary: #666666; /* Lighter gray for secondary text */
-  --text-accent: #007bff; /* Blue for accent text (links, buttons) */
+  --text-accent: #df8621; /* Blue for accent text (links, buttons) */
   --text-error: #dc3545; /* Red for error text */
 }
 

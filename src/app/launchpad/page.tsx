@@ -8,7 +8,7 @@ const AI_GENERATED_NFTS_TITLE = 'Generate fruity NFTs with AI!';
 
 export default function Home() {
   return (
-    <div className="container max-w-6xl">
+    <div className="main-container max-w-6xl">
       <section className="our-nfts">
         <h2 className="text-2xl font-semibold">{OUR_NFTS_TITLE}</h2>
         <div className="grid grid-cols-3 gap-4">{nftsJSON.map(nft => (

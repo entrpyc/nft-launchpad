@@ -4,6 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+@layer components {
+  .main-container {
+    @apply container max-w-6xl px-5 py-5;
+  }
+}
+
+body {
   font-family: "Quicksand", sans-serif;
+  @apply text-config-text-primary bg-config-bg-primary;
+}
+
+a, .hoverable {
+  transition: 0.1s all ease-in-out;
+}
+
+a:hover {
+  opacity: 0.7;
 }
