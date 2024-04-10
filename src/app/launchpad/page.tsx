@@ -2,9 +2,9 @@ import ImageWithMintButton from "@/components/ImageWithMintButton/ImageWithMintB
 
 import { nftsJSON } from "@/constants/our-nfts";
 
-const OUR_NFTS_TITLE = 'Mint NFTs from our collection! NOW';
-const CUSTOM_NFTS_TITLE = 'Mint your own, fine.';
-const AI_GENERATED_NFTS_TITLE = 'Generate with AI';
+const OUR_NFTS_TITLE = 'Mint NFTs from our fruity collection!';
+const CUSTOM_NFTS_TITLE = 'Mint your own fruity NFTs!';
+const AI_GENERATED_NFTS_TITLE = 'Generate fruity NFTs with AI!';
 
 export default function Home() {
   return (

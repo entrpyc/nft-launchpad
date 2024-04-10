@@ -27,8 +27,6 @@ export async function POST(request: NextRequest) {
     });
 
 
-    console.log(res.data.IpfsHash)
-
     return NextResponse.json({ 
       hash: res.data.IpfsHash
     }, { status: 200 });

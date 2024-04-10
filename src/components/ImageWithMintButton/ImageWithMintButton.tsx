@@ -32,14 +32,14 @@ const ImageWithMintButton: React.FC<ImageWithMintButtonProps> = ({
   alt,
   isMinted,
 }) => {
-  const { address } = useAccount();
+  const resAccount = useAccount();
   const { data: hash, writeContract, isPending, error } = useWriteContract()
-  const resRead = useReadContract({
-    abi: CONTRACT_ABI,
-    address: CONTRACT_ADDRESS,
-    functionName: 'tokenURI',
-    args: [12],
-  })
+  // const resRead = useReadContract({
+  //   abi: CONTRACT_ABI,
+  //   address: CONTRACT_ADDRESS,
+  //   functionName: 'tokenURI',
+  //   args: [12],
+  // })
  
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ 
     hash,
@@ -56,8 +56,8 @@ const ImageWithMintButton: React.FC<ImageWithMintButtonProps> = ({
   }, [imageAddress])
 
   useEffect(() => {
-    console.log(resRead)
-  }, [resRead])
+    console.log(resAccount)
+  }, [resAccount])
 
   return (
     <div className={css.block} onClick={onMintButtonClick}>
