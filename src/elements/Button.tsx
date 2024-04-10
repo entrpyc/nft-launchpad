@@ -1,7 +1,7 @@
 interface ButtonProps {
   disabled?: boolean;
   children: React.ReactNode;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button: React.FC<ButtonProps> = ({ disabled, onClick, children }) => {

@@ -1,5 +1,20 @@
 import type { Config } from "tailwindcss";
 
+import { gridExtension } from './tailwind.plugins';
+
+const configColors = {
+  bg: {
+    primary: 'var(--bg-primary)',
+    secondary: 'var(--bg-secondary)',
+    third: 'var(--bg-third)',
+  },
+  text: {
+    primary: 'var(--text-primary)',
+    secondary: 'var(--text-secondary)',
+    third: 'var(--text-third)',
+  },
+}
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,14 +22,15 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        config: configColors
       },
     },
   },
-  plugins: [],
+  plugins: [gridExtension],
 };
 export default config;

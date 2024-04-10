@@ -1,0 +1,13 @@
+@use './colors';
+
+:root {
+  @include colors.light-theme;
+
+  @media (prefers-color-scheme: dark) {
+    @include colors.dark-theme;
+  }
+}
+
+body.dark {
+  @include colors.dark-theme;
+}
