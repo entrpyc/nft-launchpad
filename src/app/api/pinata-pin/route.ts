@@ -1,3 +1,4 @@
+import { PINATA_UPLOAD_EDNPOINT } from "@/constants/routes";
 import axios from "axios";
 import { NextResponse, NextRequest } from "next/server";
 
@@ -11,29 +12,31 @@ export async function POST(request: NextRequest) {
     formData.append('file', file)
     
     const pinataMetadata = JSON.stringify({
-      name: 'File name',
+      name: 'nft',
     });
+
     formData.append('pinataMetadata', pinataMetadata);
     
     const pinataOptions = JSON.stringify({
       cidVersion: 0,
     })
+
     formData.append('pinataOptions', pinataOptions);
 
-    const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+    const res = await axios.post(PINATA_UPLOAD_EDNPOINT, formData, {
       headers: {
         'Authorization': `Bearer ${JWT}`
       }
     });
 
-
     return NextResponse.json({ 
       hash: res.data.IpfsHash
     }, { status: 200 });
+
   } catch (e) {
     console.log(e);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: e },
       { status: 500 }
     );
   }

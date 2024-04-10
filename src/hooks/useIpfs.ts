@@ -1,22 +1,25 @@
+import { PINATA_PIN_API_ROUTE } from "@/constants/routes";
 import { useState } from "react";
 
 export const useIpfs = () => {
-  const [cid, setCid] = useState("");
+  const [cid, setCid] = useState();
   const [uploading, setUploading] = useState(false);
 
-  const uploadImageToIpfs = async (fileToUpload: File) => {
+  const pinFileToIPFS = async (fileToUpload: File) => {
     setUploading(true);
+    setCid(undefined);
 
     try {
       const data = new FormData();
       data.set("file", fileToUpload);
 
-      const res = await fetch("/api/files", {
+      const res = await fetch(PINATA_PIN_API_ROUTE, {
         method: "POST",
         body: data,
       });
 
       const resData = await res.json();
+      console.log(resData)
       setCid(resData.hash);
     } catch (e) {
       console.log(e);
@@ -27,8 +30,8 @@ export const useIpfs = () => {
 
 
   return {
-    uploadImageToIpfs,
+    pinFileToIPFS,
     uploading,
-    resultSrc: cid ? `https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${cid}` : undefined
+    resultSrc: cid && `https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${cid}`
   };
 };

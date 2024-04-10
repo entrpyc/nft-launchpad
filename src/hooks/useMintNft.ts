@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PINATA_PIN_API_ROUTE } from "@/constants/routes";
 
 export const useIpfs = () => {
   const [cid, setCid] = useState("");
@@ -11,7 +12,7 @@ export const useIpfs = () => {
       const data = new FormData();
       data.set("file", fileToUpload);
 
-      const res = await fetch("/api/files", {
+      const res = await fetch(PINATA_PIN_API_ROUTE, {
         method: "POST",
         body: data,
       });

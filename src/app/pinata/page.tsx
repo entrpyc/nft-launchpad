@@ -5,14 +5,14 @@ import Image from "next/image";
 import { useRef } from "react";
 
 export default function Pinata() {
-  const { uploadImageToIpfs, uploading, resultSrc } = useIpfs();
+  const { pinFileToIPFS, uploading, resultSrc } = useIpfs();
 
   const inputFile = useRef<HTMLInputElement>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if(!e.target.files?.length) return;
 
-    uploadImageToIpfs(e.target.files[0]);
+    pinFileToIPFS(e.target.files[0]);
   };
 
   function onUploadClick() {
