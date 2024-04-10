@@ -15,7 +15,7 @@ export default function RootLayout({
     <WalletProvider>
       <header className="container max-w-6xl flex-split py-5">
         <div className="logo">
-          <Image src="/logo.png" alt="Logo" width={80} height={80} />
+          <Image src="/images/logo.png" alt="Logo" width={80} height={80} />
           <h1>Fruity NFTs</h1>
         </div>
         <div className="navigation">
