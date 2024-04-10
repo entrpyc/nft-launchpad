@@ -1,36 +1,27 @@
+import pinataSDK from '@pinata/sdk';
 import { PINATA_UPLOAD_EDNPOINT } from "@/constants/routes";
 import axios from "axios";
 import { NextResponse, NextRequest } from "next/server";
+import fs from "fs";
+
 
 export async function POST(request: NextRequest) {
   try {
-    const JWT = process.env.PINATA_JWT;
-    const formData = new FormData();
-    const data = await request.formData();
-    const file: File | null = data.get("file") as unknown as File;
-    
-    formData.append('file', file)
-    
-    const pinataMetadata = JSON.stringify({
-      name: 'nft',
-    });
 
-    formData.append('pinataMetadata', pinataMetadata);
+    const pinata = new pinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_KEY);
     
-    const pinataOptions = JSON.stringify({
-      cidVersion: 0,
-    })
+    const stream = fs.createReadStream('./public/nfts/1.jpg');
 
-    formData.append('pinataOptions', pinataOptions);
-
-    const res = await axios.post(PINATA_UPLOAD_EDNPOINT, formData, {
-      headers: {
-        'Authorization': `Bearer ${JWT}`
+    const options = {
+      pinataMetadata: {
+        name: 'test image'
       }
-    });
-
+    }
+    
+    const res = await pinata.pinFileToIPFS(stream, options);
+    
     return NextResponse.json({ 
-      hash: res.data.IpfsHash
+      hash: String(res.IpfsHash)
     }, { status: 200 });
 
   } catch (e) {
