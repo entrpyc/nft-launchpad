@@ -7,10 +7,10 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   disabled,
   onClick,
-  children
+  children,
 }) => {
   return (
-    <button type="button" disabled={disabled} onClick={onClick}>{children}</button>
+    <button className="button" type="button" disabled={disabled} onClick={onClick}>{children}</button>
   );
 };
 

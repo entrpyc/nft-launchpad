@@ -6,13 +6,14 @@ const configColors = {
   bg: {
     primary: 'var(--bg-primary)',
     secondary: 'var(--bg-secondary)',
-    accent: 'var(--bg-accent)',
+    contrast: 'var(--bg-contrast)',
     error: 'var(--bg-error)',
   },
   text: {
     primary: 'var(--text-primary)',
     secondary: 'var(--text-secondary)',
     accent: 'var(--text-accent)',
+    contrast: 'var(--text-contrast)',
     error: 'var(--text-error)',
   },
 }

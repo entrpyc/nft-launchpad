@@ -1,40 +1,18 @@
 "use client";
 
+import { useIpfs } from "@/hooks/useIpfs";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 export default function Pinata() {
-  const [file, setFile] = useState<File | null>();
-  const [cid, setCid] = useState("");
-  const [uploading, setUploading] = useState(false);
+  const { uploadImageToIpfs, uploading, resultSrc } = useIpfs();
 
   const inputFile = useRef<HTMLInputElement>(null);
 
-  const uploadFile = async (fileToUpload: File) => {
-    console.log(process.env.NEXT_PUBLIC_GATEWAY_URL)
-    try {
-      setUploading(true);
-      const data = new FormData();
-      data.set("file", fileToUpload);
-      const res = await fetch("/api/files", {
-        method: "POST",
-        body: data,
-      });
-      const resData = await res.json();
-      setCid(resData.hash);
-      setUploading(false);
-    } catch (e) {
-      console.log(e);
-      setUploading(false);
-      alert("Trouble uploading file");
-    }
-  };
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if(!e.target.files) return;
+    if(!e.target.files?.length) return;
 
-    setFile(e.target.files[0]);
-    uploadFile(e.target.files[0]);
+    uploadImageToIpfs(e.target.files[0]);
   };
 
   function onUploadClick() {
@@ -49,10 +27,12 @@ export default function Pinata() {
       <button disabled={uploading} onClick={onUploadClick}>
         {uploading ? "Uploading..." : "Upload"}
       </button>
-      {cid && (
+      {resultSrc && (
         <Image
-          src={`${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${cid}`}
+          src={resultSrc}
           alt="Image from IPFS"
+          width={100}
+          height={100}
         />
       )}
     </main>

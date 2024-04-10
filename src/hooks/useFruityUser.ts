@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { GET_USER_API_ROUTE } from '@/constants/routes';
+import { useState } from 'react';
 
 export const useFruityUser = () => {
   const [user, setUser] = useState(null);
@@ -9,7 +10,7 @@ export const useFruityUser = () => {
     
     setIsFetchingUserData(true);
     try {
-      const response = await fetch('/api/user', {
+      const response = await fetch(GET_USER_API_ROUTE, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ address }),

@@ -33,7 +33,7 @@ export default function LaunchpadLayout({
           </div>
         </div>
       </header>
-      <main className="pt-[9rem]">{children}</main>
+      <main className="pt-[13rem] sm:pt-[11rem] md:pt-[9rem]">{children}</main>
       </UserProvider>
     </WalletProvider>
   );

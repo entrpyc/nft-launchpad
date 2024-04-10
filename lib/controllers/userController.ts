@@ -5,8 +5,6 @@ interface UserProps {
   address: string
 }
 
-
-
 export const findUser = async ({ address }: UserProps) => {
   const user = await User.findOne({ address });
 
@@ -17,9 +15,9 @@ export const findUser = async ({ address }: UserProps) => {
 
 export const createUser = async ({ address }: UserProps) => {
   const featureFlags = {
-    customNFTs: false,
-    aiGeneration: false,
-    colorSchemes: false,
+    customNFTs: true,
+    aiGeneration: true,
+    colorSchemes: true,
   }
   
   const newUser = await User.create({

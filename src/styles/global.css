@@ -17,10 +17,7 @@ body {
 
 a, .hoverable {
   transition: 0.1s all ease-in-out;
-}
-
-a:hover {
-  opacity: 0.7;
+  cursor: pointer;
 }
 
 .contents {
