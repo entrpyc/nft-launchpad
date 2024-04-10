@@ -23,7 +23,6 @@ const config = getDefaultConfig({
 });
 
 export default function WalletProvider({ children }: WalletProviderProps) {
-
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>

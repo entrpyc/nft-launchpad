@@ -1,7 +1,0 @@
-.block {
-  @apply relative hover:opacity-80 cursor-pointer;
-}
-
-.button {
-  @apply absolute bottom-3 left-3 bg-config-bg-secondary;
-}

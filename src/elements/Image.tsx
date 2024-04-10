@@ -7,9 +7,14 @@ interface ImageProps {
   height?: number;
 }
 
-const Image: React.FC<ImageProps> = ({ src, alt, width, height }) => {
+const Image: React.FC<ImageProps> = ({
+  src,
+  alt,
+  width = 100,
+  height = 100
+}) => {
   return (
-    <NextImage src={src} alt={alt} width={width || 1000} height={height || 1000} />
+    <NextImage src={src} alt={alt} width={width} height={height} />
   );
 };
 

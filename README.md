@@ -7,6 +7,8 @@ Colors are configured in src/styles/colors.scss
 
 Import chunkier libraries only on server components
 
+Default element styles are defined in styles/elements.scss
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

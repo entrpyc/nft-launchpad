@@ -1,26 +1,31 @@
 import { NextRequest } from 'next/server';
 import User from '../models/UserModel';
 
-export const createUser = async () => {
-  const ourTokens = [
-    { id: 'token_id_1' },
-    { id: 'token_id_2' },
-  ];
-  
-  const customTokens = [
-    { id: 'custom_token_id_1' },
-  ];
-  
+interface UserProps {
+  address: string
+}
+
+
+
+export const findUser = async ({ address }: UserProps) => {
+  const user = await User.findOne({ address });
+
+  if(!user) return null;
+
+  return user;
+}
+
+export const createUser = async ({ address }: UserProps) => {
   const featureFlags = {
     customNFTs: false,
     aiGeneration: false,
     colorSchemes: false,
-  };
-
+  }
+  
   const newUser = await User.create({
-    address: 'user_address',
-    ourTokens,
-    customTokens,
+    address,
+    ourTokens: [],
+    customTokens: [],
     featureFlags,
   });
 

@@ -1,0 +1,11 @@
+.title {
+  @apply text-config-text-secondary text-2xl font-semibold mb-5;
+}
+
+.text {
+  @apply text-config-text-primary;  
+}
+
+.link {
+  @apply text-config-text-accent;  
+}

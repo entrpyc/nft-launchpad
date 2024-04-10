@@ -1,11 +1,18 @@
 interface TitleProps {
   className?: string;
   children: React.ReactNode;
+  tag?: React.ElementType<any>
 }
 
-const Title: React.FC<TitleProps> = ({ className, children }) => {
+const Title: React.FC<TitleProps> = ({
+  className,
+  children,
+  tag: Tag = 'h2'
+}) => {
   return (
-    <p className={`text-2xl ${className}`}>{children}</p>
+    <div className="contents title">
+      <Tag className={className}>{children}</Tag>
+    </div>
   );
 };
 

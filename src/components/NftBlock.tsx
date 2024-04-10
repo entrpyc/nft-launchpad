@@ -1,7 +1,5 @@
 'use client'
 
-import css from './ImageWithMintButton.module.css';
-
 import { useCallback, useEffect } from "react";
 
 import Image from "@/elements/Image";
@@ -55,14 +53,14 @@ const ImageWithMintButton: React.FC<ImageWithMintButtonProps> = ({
     })
   }, [imageAddress])
 
-  useEffect(() => {
-    console.log(resAccount)
-  }, [resAccount])
+  // useEffect(() => {
+  //   console.log(resAccount)
+  // }, [resAccount])
 
   return (
-    <div className={css.block} onClick={onMintButtonClick}>
-      <Image src={src} alt={alt} />
-      <div className={css.button}>
+    <div className="relative hover:opacity-80 cursor-pointer" onClick={onMintButtonClick}>
+      <Image src={src} alt={alt} width={1000} height={1000} />
+      <div className="absolute bottom-3 left-3 bg-config-bg-secondary">
         <Button disabled={isPending}>{MINT_BUTTON_TEXT}</Button>
       </div>
       <p>{hash}</p>

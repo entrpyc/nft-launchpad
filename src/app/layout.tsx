@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "@/styles/config.scss";
 import "@/styles/global.css";
+import "@/styles/elements.scss";
 import '@rainbow-me/rainbowkit/styles.css';
 
 export const metadata: Metadata = {

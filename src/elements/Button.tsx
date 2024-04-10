@@ -4,7 +4,11 @@ interface ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ disabled, onClick, children }) => {
+const Button: React.FC<ButtonProps> = ({
+  disabled,
+  onClick,
+  children
+}) => {
   return (
     <button type="button" disabled={disabled} onClick={onClick}>{children}</button>
   );

@@ -1,11 +1,18 @@
 interface TextProps {
   className?: string;
   children: React.ReactNode;
+  tag?: React.ElementType<any>
 }
 
-const Text: React.FC<TextProps> = ({ className, children }) => {
+const Text: React.FC<TextProps> = ({
+  className,
+  children,
+  tag: Tag = 'p'
+}) => {
   return (
-    <p className={className}>{children}</p>
+    <div className="conetnts text">
+      <Tag className={className}>{children}</Tag>
+    </div>
   );
 };
 

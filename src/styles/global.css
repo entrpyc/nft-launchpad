@@ -22,3 +22,7 @@ a, .hoverable {
 a:hover {
   opacity: 0.7;
 }
+
+.contents {
+  display: contents;
+}
