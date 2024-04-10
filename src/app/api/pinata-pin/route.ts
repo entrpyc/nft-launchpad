@@ -1,21 +1,18 @@
 import pinataSDK from '@pinata/sdk';
-import { PINATA_UPLOAD_EDNPOINT } from "@/constants/routes";
-import axios from "axios";
 import { NextResponse, NextRequest } from "next/server";
 import fs from "fs";
-
+// './public/nfts/1.jpg'
 
 export async function POST(request: NextRequest) {
-  try {
+  const { path, name } = await request.json();
 
+  try {
     const pinata = new pinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_KEY);
     
-    const stream = fs.createReadStream('./public/nfts/1.jpg');
+    const stream = fs.createReadStream(path);
 
     const options = {
-      pinataMetadata: {
-        name: 'test image'
-      }
+      pinataMetadata: { name }
     }
     
     const res = await pinata.pinFileToIPFS(stream, options);
@@ -24,11 +21,8 @@ export async function POST(request: NextRequest) {
       hash: String(res.IpfsHash)
     }, { status: 200 });
 
-  } catch (e) {
-    console.log(e);
-    return NextResponse.json(
-      { error: e },
-      { status: 500 }
-    );
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

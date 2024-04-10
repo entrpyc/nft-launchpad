@@ -10,12 +10,12 @@ export const useIpfs = () => {
     setCid(undefined);
 
     try {
-      const data = new FormData();
-      data.set("file", fileToUpload);
+      const formData = new FormData();
+      formData.append('file', fileToUpload);
 
       const res = await fetch(PINATA_PIN_API_ROUTE, {
         method: "POST",
-        body: data,
+        body: formData,
       });
 
       const resData = await res.json();

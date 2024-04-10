@@ -1,18 +1,20 @@
 "use client";
 
+import { useFileUpload } from "@/hooks/useFileUpload";
 import { useIpfs } from "@/hooks/useIpfs";
 import Image from "next/image";
 import { useRef } from "react";
 
 export default function Pinata() {
-  const { pinFileToIPFS, uploading, resultSrc } = useIpfs();
+  const { upload, uploading } = useFileUpload();
 
   const inputFile = useRef<HTMLInputElement>(null);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if(!e.target.files?.length) return;
 
-    pinFileToIPFS(e.target.files[0]);
+    const result = await upload(e.target.files[0]);
+    console.log(result)
   };
 
   function onUploadClick() {
@@ -27,14 +29,14 @@ export default function Pinata() {
       <button disabled={uploading} onClick={onUploadClick}>
         {uploading ? "Uploading..." : "Upload"}
       </button>
-      {resultSrc && (
+      {/* {resultSrc && (
         <Image
           src={resultSrc}
           alt="Image from IPFS"
           width={100}
           height={100}
         />
-      )}
+      )} */}
     </main>
   );
 }
