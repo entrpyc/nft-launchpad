@@ -1,35 +1,45 @@
 import { useState } from "react";
-import { PINATA_PIN_API_ROUTE } from "@/constants/routes";
 
-export const useIpfs = () => {
-  const [cid, setCid] = useState("");
-  const [uploading, setUploading] = useState(false);
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import {
+  CONTRACT_ADDRESS,
+  CONTRACT_MINT_FUNCTION_NAME,
+} from "@/constants/our-nfts";
+import { ethers } from "ethers";
+import CONTRACT_ABI from '@/contracts/nft-contract-abi.json';
 
-  const uploadImageToIpfs = async (fileToUpload: File) => {
-    setUploading(true);
+interface mintNftProps {
+  uri: string;
+  value: string;
+}
 
+export const useMintNft = () => {
+  const { data: hash, writeContract, isPending, error } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ 
+    hash,
+  })
+
+  const mintNft = async ({ uri, value }: mintNftProps) => {
     try {
-      const data = new FormData();
-      data.set("file", fileToUpload);
+      writeContract({
+        abi: CONTRACT_ABI,
+        address: CONTRACT_ADDRESS,
+        functionName: CONTRACT_MINT_FUNCTION_NAME,
+        args: [uri],
+        value: ethers.parseEther(value)
+      })
 
-      const res = await fetch(PINATA_PIN_API_ROUTE, {
-        method: "POST",
-        body: data,
-      });
-
-      const resData = await res.json();
-      setCid(resData.hash);
     } catch (e) {
       console.log(e);
     }
-
-    setUploading(false);
   };
 
 
   return {
-    uploadImageToIpfs,
-    uploading,
-    resultSrc: cid ? `https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${cid}` : undefined
+    mintNft,
+    isConfirming,
+    isConfirmed,
+    isPending,
+    error,
   };
 };

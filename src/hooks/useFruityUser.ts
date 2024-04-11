@@ -1,4 +1,4 @@
-import { GET_USER_API_ROUTE } from '@/constants/routes';
+import { ADD_FRUITY_TOKEN_API_ROUTE, GET_USER_API_ROUTE } from '@/constants/routes';
 import { useState } from 'react';
 
 export const useFruityUser = () => {
@@ -31,5 +31,28 @@ export const useFruityUser = () => {
     setIsFetchingUserData(false);
   }
 
-  return { user, isFetchingUserData, getUser };
+  const addFruityToken = async (address: string, token: string) => {
+    if(!address || !token) return;
+
+    
+    setIsFetchingUserData(true);
+    try {
+      const response = await fetch(ADD_FRUITY_TOKEN_API_ROUTE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ address, token }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+  
+      return await response.json();
+    } catch (error) {
+      console.error('Error updating user address:', error);
+    }
+    setIsFetchingUserData(false);
+  }
+
+  return { user, isFetchingUserData, getUser, addFruityToken };
 };

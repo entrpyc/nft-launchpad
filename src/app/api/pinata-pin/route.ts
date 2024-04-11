@@ -1,10 +1,11 @@
 import pinataSDK from '@pinata/sdk';
 import { NextResponse, NextRequest } from "next/server";
 import fs from "fs";
-// './public/nfts/1.jpg'
+import { v4 as uuid } from "uuid";
+
 
 export async function POST(request: NextRequest) {
-  const { path, name } = await request.json();
+  const { path } = await request.json();
 
   try {
     const pinata = new pinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_KEY);
@@ -12,7 +13,7 @@ export async function POST(request: NextRequest) {
     const stream = fs.createReadStream(path);
 
     const options = {
-      pinataMetadata: { name }
+      pinataMetadata: { name: `app-pin-${uuid()}` }
     }
     
     const res = await pinata.pinFileToIPFS(stream, options);

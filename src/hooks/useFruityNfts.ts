@@ -7,7 +7,7 @@ type TokenType = {
 }
 
 interface UserInterface {
-  ourTokens: TokenType[]
+  fruityTokens: TokenType[]
 }
 
 export const useFruityNfts = () => {
@@ -20,7 +20,7 @@ export const useFruityNfts = () => {
 
     const fruityNftsWithOwnership = fruityNfts.map(fruityNft => ({
       ...fruityNft,
-      isMinted: (user as UserInterface).ourTokens.some(token => token.id === fruityNft.id)
+      isMinted: (user as UserInterface).fruityTokens.some(token => token.id === fruityNft.id)
     }))
 
     setFruityNfts(fruityNftsWithOwnership);

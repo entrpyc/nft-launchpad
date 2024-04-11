@@ -5,24 +5,28 @@ export const useIpfs = () => {
   const [cid, setCid] = useState();
   const [uploading, setUploading] = useState(false);
 
-  const pinFileToIPFS = async (fileToUpload: File) => {
+  const pinFileToIPFS = async (path: string) => {
     setUploading(true);
     setCid(undefined);
 
     try {
-      const formData = new FormData();
-      formData.append('file', fileToUpload);
 
       const res = await fetch(PINATA_PIN_API_ROUTE, {
         method: "POST",
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path }),
       });
 
       const resData = await res.json();
+
       console.log(resData)
+
       setCid(resData.hash);
+
+      return `https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${resData.hash}`;
     } catch (e) {
       console.log(e);
+      return false;
     }
 
     setUploading(false);
@@ -32,6 +36,6 @@ export const useIpfs = () => {
   return {
     pinFileToIPFS,
     uploading,
-    resultSrc: cid && `https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${cid}`
+    resultSrc: cid ? `https://${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${cid}` : ''
   };
 };

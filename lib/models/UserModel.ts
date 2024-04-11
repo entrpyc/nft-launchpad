@@ -5,6 +5,10 @@ const tokenSchema = new Schema({
     type: String,
     required: true,
   },
+  uri: {
+    type: String,
+    required: false,
+  },
 });
 
 const featureFlagSchema = new Schema({
@@ -23,7 +27,7 @@ const userSchema = new Schema({
   address: {
     type: String
   },
-  ourTokens: [tokenSchema],
+  fruityTokens: [tokenSchema],
   customTokens: [tokenSchema],
   featureFlags: featureFlagSchema,
 });

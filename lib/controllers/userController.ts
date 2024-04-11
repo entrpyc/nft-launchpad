@@ -3,6 +3,7 @@ import User from '../models/UserModel';
 
 interface UserProps {
   address: string
+  token?: string
 }
 
 export const findUser = async ({ address }: UserProps) => {
@@ -22,7 +23,7 @@ export const createUser = async ({ address }: UserProps) => {
   
   const newUser = await User.create({
     address,
-    ourTokens: [],
+    fruityTokens: [],
     customTokens: [],
     featureFlags,
   });
@@ -30,11 +31,14 @@ export const createUser = async ({ address }: UserProps) => {
   return newUser;
 }
 
-export const addOurToken = async () => {
-  const userId = '';
-  const newToken = '';
+export const addFruityToken = async ({ address, token }: UserProps) => {
+  const user = await User.findOne({ address });
   
-  const newUser = await User.findByIdAndUpdate(userId, { $push: { ourTokens: newToken } })
+  const newUser = await User.findByIdAndUpdate(
+    user.id,
+    { $push: { fruityTokens: { id: token } } },
+    { new: true } // Return the updated document
+  );
 
   return newUser;
 }

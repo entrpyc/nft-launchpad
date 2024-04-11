@@ -15,5 +15,9 @@
 }
 
 .button {
-  @apply bg-config-bg-contrast text-config-text-contrast px-3 py-2 rounded-md min-w-24 min-h-12 font-bold text-xl shadow-xl hover:opacity-90;  
+  @apply bg-config-bg-contrast text-config-text-contrast px-3 py-2 rounded-md min-w-24 min-h-12 font-bold text-xl shadow-xl hover:opacity-90;
+  
+  &[disabled]:hover {
+    @apply opacity-100;
+  }
 }

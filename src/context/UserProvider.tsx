@@ -5,10 +5,12 @@ import { useAccount } from 'wagmi';
 
 interface UserContextValue {
   user: UserType | null;
+  setUser:  React.Dispatch<React.SetStateAction<UserType | null>>
 }
 
 export const UserContext = createContext<UserContextValue>({
   user: null,
+  setUser: () => {}
 });
 
 interface UserType {
@@ -37,7 +39,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   }, [address])
 
   return <UserContext.Provider value={{
-    user
+    user, setUser
   }}>
     {children}
   </UserContext.Provider>
